@@ -426,8 +426,8 @@ int main(int argc, char *argv[]){
 	double ALPHA_MIN = 1.0;
 	double PENALTY = 5.0;
 	double PENALTY2 = 50.0;
-	int GEN = 100000000;
-	int VALNUM = 400000000;
+	int GEN = INT_MAX;
+	int VALNUM = INT_MAX;
 
 	double shita = M_PI / (2.0 * MOEAD_H1);
 	double SBX_ETA = 20.0;
@@ -1159,23 +1159,55 @@ int main(int argc, char *argv[]){
 
 		non_dominated_set(FV, non_dom_set, ndsize, ob, N, SIGN);
 
+		//output
+		//from here
+		//char genoutputfile[30] = "gen";
+		//char tempchar[5] = "00";
+		//sprintf(tempchar, "%d", g);
+		//strcat(genoutputfile, tempchar);
+		//strcat(genoutputfile, "_graph");
+		//sprintf(tempchar, "%d", atoi(argv[2]));
+		//strcat(genoutputfile, tempchar);
+		//strcat(genoutputfile, ".txt");
+		//ofstream genoutput(genoutputfile);
+		//
+		//genoutput << setprecision(20);
+		//for (int nd = 0; nd < ndsize; nd++){
+		//	for (int o = 0; o < ob - 1; o++){
+		//		genoutput << non_dom_set[nd][o] << "\t";
+		//	}
+		//	genoutput << non_dom_set[nd][ob - 1];
+		//	genoutput << endl;
+		//}
+		//genoutput.close();
+		//output
+		//to here
+
 		double *realmin = new double[ob];
 		double *realmax = new double[ob];
 		for (int o = 0; o < ob; o++){
 			realmin[o] = zmin[o];
 			realmax[o] = non_dom_set[0][o];
 		}
-		
+		for (int o = 0; o < ob; o++){
+			zmax[o] = 0.0;
+			fmax[o] = 0.0;
+		}
+		for (int n = 0; n < N; n++){
+			max_z(FV[n], zmax, ob, ALPHA_MAX, fmax);
+		}
 		for (int ns = 0; ns < ndsize; ns++){
 			for (int o = 0; o < ob; o++){
-				if (realmax[o] < non_dom_set[ns][o]){
-					realmax[o] = non_dom_set[ns][o];
-				}
+				//if (realmax[o] < non_dom_set[ns][o]){
+					realmax[o] = zmax[o];
+				//}
 
 			}
 		}
 		//only minimization
 
+
+		
 
 		CalcExtremePoint(extremepoint, non_dom_set, realmax, realmin, ob, N);
 

@@ -1,0 +1,1 @@
+for /L %%i in (0,1,51) do (NMOEAD.exe -num %%i -pro dmp -obj 8 -pop 120 -gen 800 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1.0 -k_fac 7 -l_fac 17 -k_dtlz 1000 -dev 3 -dev2 2 -pop2 36 -nei 20 -fun pbi -pena 5.0 -normalize false)

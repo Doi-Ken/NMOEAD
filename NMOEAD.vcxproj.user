@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>-num 0 -pro knapsack -obj 6 -pop 252 -dev 5 -nei 10 -fun tchebycheff -amax 1.0 -amin 1.0 -pena 5.0 -pena2 50.0 -shita 0.261799387799 -valnum 30000000000 -gen 1000 -sbxeta 15.0 -muteta 20.0 -co 1.0 -mut 1 -k_fac 2 -l_fac 22 -k_dtlz 2 -lam false -maxmin max -refnondom false -normalize false -pop2 0 -dev2 1 -knapalpha 0.0</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-num 0 -pro dmp -obj 8 -pop 120 -gen 800 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1.0 -k_fac 7 -l_fac 17 -k_dtlz 1000 -dev 3 -dev2 2 -pop2 36 -nei 20 -fun pbi -pena 5.0 -normalize true</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>-num 0 -pro knapsack -obj 3 -pop 91 -dev 12 -nei 20 -fun pbi -pena 5.0 -gen 300 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1 -k_fac 2 -l_fac 22 -k_dtlz 5 -lam false -maxmin min -normalize false -pop2 0 -dev2 1 -knapalpha 0.0</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-num 0 -pro dtlz1 -obj 3 -pop 91 -dev 12 -nei 20 -fun pbi -amax 1.0 -amin 1.0 -pena 5.0 -pena2 50.0 -shita 0.261799387799 -valnum 10000000000 -gen 400 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1.0 -k_fac 2 -l_fac 22 -k_dtlz 5 -lam false -maxmin min -refnondom false -normalize false -pop2 0 -dev2 1</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

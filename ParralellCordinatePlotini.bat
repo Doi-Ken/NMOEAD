@@ -1,0 +1,1 @@
+ParrallelCordinatePlot dtlz-ini.dat 8
