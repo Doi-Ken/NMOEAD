@@ -1,1 +1,1 @@
-ParrallelCordinatePlot graph0.txt 6
+ParrallelCordinatePlot graph0.txt 8

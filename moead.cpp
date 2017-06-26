@@ -440,6 +440,54 @@ double p_b_i_min(double *fit, double *lambda, double *z, int ob, double PENALTY)
 	return (d_t + PENALTY * d_n);
 }
 
+double normalized_p_b_i_min(double *fit, double *lambda, double *z, int ob, double PENALTY, double *objective_range){
+	double lambda_norm = 0.0;
+	double d_t = 0.0;
+	double d_n = 0.0;
+	double *z_minus_fit = new double[ob];
+	double *theta = new double[ob];
+	double range_min = DBL_MAX;
+
+	for (int o = 0; o < ob; o++){
+		if (range_min > objective_range[o]){
+			range_min = objective_range[o];
+		}
+	}
+	for (int o = 0; o < ob; o++){
+		theta[o] = objective_range[o] / range_min;
+	}
+
+	for (int o = 0; o < ob; o++){
+		lambda_norm += lambda[o] * lambda[o];
+	}
+	lambda_norm = sqrt(lambda_norm);
+
+	for (int o = 0; o < ob; o++){
+		z_minus_fit[o] = fit[o] - z[o];
+	}
+	//d_t
+	for (int o = 0; o < ob; o++){
+		d_t += z_minus_fit[o] * lambda[o];
+	}
+	d_t /= lambda_norm;
+
+	//d_n
+	for (int o = 0; o < ob; o++){
+		d_n += theta[o] * theta[o] * (z_minus_fit[o] - d_t * lambda[o] / lambda_norm) * (z_minus_fit[o] - d_t * lambda[o] / lambda_norm);
+	}
+	d_n = sqrt(d_n);
+
+	//double check = 0.0;
+	//for(int o = 0;o < ob;o++){
+	//	check += z_minus_fit[o] * z_minus_fit[o];
+	//}
+	//cout << check << " " << d_n * d_n + d_t * d_t << endl;
+
+	delete[] theta;
+	delete[] z_minus_fit;
+	return (d_t + PENALTY * d_n);
+}
+
 double quadratic_p_b_i(double *fit, double *lambda, double *z, int ob, double PENALTY, double shita){
 	double lambda_norm = 0.0;
 	double d_t = 0.0;
@@ -1241,6 +1289,11 @@ bool function_valuation(char *problem, char *scalarizing_function,
 			else if (strcmp(scalarizing_function, "pbi") == 0){
 				y_g_t_e = p_b_i_min(children_objective, lambda, minz, ob, PENALTY);
 				cure = p_b_i_min(original_objective, lambda, minz, ob, PENALTY);
+				return y_g_t_e <= cure;
+			}
+			else if (strcmp(scalarizing_function, "normalized_pbi") == 0){
+				y_g_t_e = normalized_p_b_i_min(children_objective, lambda, minz, ob, PENALTY, lambda2);
+				cure = normalized_p_b_i_min(original_objective, lambda, minz, ob, PENALTY, lambda2);
 				return y_g_t_e <= cure;
 			}
 			else if (strcmp(scalarizing_function, "quadratic_pbi") == 0){

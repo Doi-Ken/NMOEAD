@@ -33,7 +33,7 @@ double inverted_p_b_i_double_normalize_fix(double *fit, double *lambda, double *
 double inverted_p_b_i_min(double *fit, double *lambda, double *z, int ob, double PENALTY);
 double quadratic_inverted_p_b_i_min(double *fit, double *lambda, double *z, int ob, double PENALTY);
 double inverted_p_b_i_min_double_normalize_fix(double *fit, double *lambda, double *z, int ob, double PENALTY, double PENALTY2, double shita);
-
+double normalized_p_b_i_min(double *fit, double *lambda, double *z, int ob, double PENALTY, double *objective_range);
 
 
 void max_z(double *fit, double *z, int ob, double ALPHA, double *fitmax);

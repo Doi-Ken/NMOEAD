@@ -1151,6 +1151,40 @@ int main(int argc, char *argv[]){
 	int divide = VALNUM / N;
 	//cout << divide << endl;
 	int finiflag = 0;
+
+
+	//output
+	//from here
+	//char range_maxminoutputfile[100][40];
+	//char tempchar2[5] = "00";
+	//for (int o = 0; o < ob; o++){
+	//	strcpy(range_maxminoutputfile[o], "range_max_min");
+	//	sprintf(tempchar2, "%d", atoi(argv[2]));
+	//	strcat(range_maxminoutputfile[o], "_graph");
+	//	strcat(range_maxminoutputfile[o], tempchar2);
+	//	strcat(range_maxminoutputfile[o], "_");
+	//	sprintf(tempchar2, "%d", o + 1);
+	//	strcat(range_maxminoutputfile[o], tempchar2);
+	//	strcat(range_maxminoutputfile[o], "ob.txt");
+	//}
+
+
+	//char range_nondom_maxminoutputfile[100][40];
+	//for (int o = 0; o < ob; o++){
+	//	strcpy(range_nondom_maxminoutputfile[o], "range_nondom_max_min");
+	//	sprintf(tempchar2, "%d", atoi(argv[2]));
+	//	strcat(range_nondom_maxminoutputfile[o], "_graph");
+	//	strcat(range_nondom_maxminoutputfile[o], tempchar2);
+	//	strcat(range_nondom_maxminoutputfile[o], "_");
+	//	sprintf(tempchar2, "%d", o + 1);
+	//	strcat(range_nondom_maxminoutputfile[o], tempchar2);
+	//	strcat(range_nondom_maxminoutputfile[o], "ob.txt");
+	//}
+
+
+	//output
+	//to here
+
 	for (int g = 0; g < GEN; g++){
 
 		//only minimization
@@ -1161,25 +1195,64 @@ int main(int argc, char *argv[]){
 
 		//output
 		//from here
-		//char genoutputfile[30] = "gen";
-		//char tempchar[5] = "00";
-		//sprintf(tempchar, "%d", g);
-		//strcat(genoutputfile, tempchar);
-		//strcat(genoutputfile, "_graph");
-		//sprintf(tempchar, "%d", atoi(argv[2]));
-		//strcat(genoutputfile, tempchar);
-		//strcat(genoutputfile, ".txt");
-		//ofstream genoutput(genoutputfile);
-		//
-		//genoutput << setprecision(20);
-		//for (int nd = 0; nd < ndsize; nd++){
-		//	for (int o = 0; o < ob - 1; o++){
-		//		genoutput << non_dom_set[nd][o] << "\t";
-		//	}
-		//	genoutput << non_dom_set[nd][ob - 1];
-		//	genoutput << endl;
-		//}
-		//genoutput.close();
+	/*	char genoutputfile[30] = "gen";
+		char genoutputfile_objective[100][40];
+		char tempchar[5] = "00";
+		sprintf(tempchar, "%d", g);
+		strcat(genoutputfile, tempchar);
+		strcat(genoutputfile, "_graph");
+		sprintf(tempchar, "%d", atoi(argv[2]));
+		strcat(genoutputfile, tempchar);
+		for (int o = 0; o < ob; o++){
+			strcpy(genoutputfile_objective[o], genoutputfile);
+			sprintf(tempchar, "%d", o + 1);
+			strcat(genoutputfile_objective[o], "_");
+			strcat(genoutputfile_objective[o], tempchar);
+			strcat(genoutputfile_objective[o], "ob.txt");
+		}
+
+		strcat(genoutputfile, ".txt");
+		ofstream genoutput(genoutputfile);
+		
+		genoutput << setprecision(20);
+		for (int nd = 0; nd < ndsize; nd++){
+			for (int o = 0; o < ob - 1; o++){
+				genoutput << non_dom_set[nd][o] << "\t";
+			}
+			genoutput << non_dom_set[nd][ob - 1];
+			genoutput << endl;
+		}
+		genoutput.close();
+		double *nondom_min = new double[ob];
+		double *nondom_max = new double[ob];
+		for (int o = 0; o < ob; o++){
+			nondom_min[o] = DBL_MAX;
+			nondom_max[o] = DBL_MIN;
+			ofstream genoutputob(genoutputfile_objective[o]);
+			ofstream range_nondom_maxminoutput(range_nondom_maxminoutputfile[o], ios::app);
+			ofstream range_maxminoutput(range_maxminoutputfile[o], ios::app);
+			range_nondom_maxminoutput << setprecision(20);
+			range_maxminoutput << setprecision(20);
+			genoutputob << setprecision(20);
+			range_maxminoutput << setprecision(20);
+			for (int nd = 0; nd < ndsize; nd++){
+				genoutputob << non_dom_set[nd][o] << endl;
+				if (non_dom_set[nd][o] > nondom_max[o]){
+					nondom_max[o] = non_dom_set[nd][o];
+				}
+				if (non_dom_set[nd][o] < nondom_min[o]){
+					nondom_min[o] = non_dom_set[nd][o];
+				}
+			}
+			range_nondom_maxminoutput <<g << "\t" <<  (nondom_max[o] - nondom_min[o]) << endl;
+			range_nondom_maxminoutput.close();
+			range_maxminoutput << g << "\t" << (nondom_max[o] - zmin[o]) << endl;
+			range_maxminoutput.close();
+			genoutputob.close();
+		}
+		delete[] nondom_min;
+		delete[] nondom_max;
+*/
 		//output
 		//to here
 
@@ -1322,6 +1395,11 @@ int main(int argc, char *argv[]){
 						normalized_y_fit[o] = (y_fit[o] - zmin[o]) / (interception[o] - zmin[o]);
 						normalized_zmin[o] = 0.0;
 						normalized_zmax[o] = 1.0;					
+					}
+					if (strcmp(function, "normalized_pbi") == 0){
+						for (int o = 0; o < ob; o++){
+							lambda2[jejeje][o] = interception[o] - zmin[o];
+						}
 					}
 
 				
