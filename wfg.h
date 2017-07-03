@@ -704,6 +704,54 @@ void dtlz1(double y[], double fit[], int ob, int k){
 	}
 }
 
+void scaledtlz1(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5) - cos(20.0 * M_PI * (y[i] - 0.5));
+	}
+	g_x_m += x_m;
+	g_x_m *= 100.0;
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = pow(10.0, i) * 0.5 * (1.0 + g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= y[k];
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= (1.0 - y[ob - i - 1]);
+	}
+}
+
+void disscaledtlz1(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5) - cos(20.0 * M_PI * (y[i] - 0.5));
+	}
+	g_x_m += x_m;
+	g_x_m *= 100.0;
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = 0.5 * (1.0 + pow(10.0, i) * g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= y[k];
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= (1.0 - y[ob - i - 1]);
+	}
+}
+
 
 
 void dtlz2(double y[], double fit[], int ob,int k){
@@ -728,6 +776,51 @@ void dtlz2(double y[], double fit[], int ob,int k){
 	}
 }
 
+void scaledtlz2(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5);
+	}
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = pow(10.0, i) *(1.0 + g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * y[k] * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * y[ob - i - 1] * M_PI);
+	}
+}
+
+void disscaledtlz2(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5);
+	}
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = (1.0 + pow(10.0, i) *g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * y[k] * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * y[ob - i - 1] * M_PI);
+	}
+}
+
+
 void dtlz3(double y[], double fit[], int ob,int k){
 	int x_m = k;
 	double g_x_m = 0.0;
@@ -740,6 +833,54 @@ void dtlz3(double y[], double fit[], int ob,int k){
 
 	for (int i = 0; i < ob; i++){
 		fit[i] = (1.0 + g_x_m);
+	}
+
+	for (int i = 0; i < ob; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * y[k] * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * y[ob - i - 1] * M_PI);
+	}
+}
+
+void scaledtlz3(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < k + ob - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5) - cos(20.0 * M_PI * (y[i] - 0.5));
+	}
+	g_x_m += x_m;
+	g_x_m *= 100.0;
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = pow(10.0, i) *(1.0 + g_x_m);
+	}
+
+	for (int i = 0; i < ob; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * y[k] * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * y[ob - i - 1] * M_PI);
+	}
+}
+
+void disscaledtlz3(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+
+	for (int i = ob - 1; i < k + ob - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5) - cos(20.0 * M_PI * (y[i] - 0.5));
+	}
+	g_x_m += x_m;
+	g_x_m *= 100.0;
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = (1.0 + pow(10.0, i) *g_x_m);
 	}
 
 	for (int i = 0; i < ob; i++){
@@ -774,6 +915,53 @@ void dtlz4(double y[], double fit[], int ob, int k){
 		fit[i] *= sin(0.5 * pow(y[ob - i - 1], alpha) * M_PI);
 	}
 }
+
+void scaledtlz4(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+	double alpha = 100.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5);
+	}
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = pow(10.0, i) *(1.0 + g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * pow(y[k], alpha) * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * pow(y[ob - i - 1], alpha) * M_PI);
+	}
+}
+
+void disscaledtlz4(double y[], double fit[], int ob, int k){
+	int x_m = k;
+	double g_x_m = 0.0;
+	double alpha = 100.0;
+
+	for (int i = ob - 1; i < ob + k - 1; i++){
+		g_x_m += (y[i] - 0.5) * (y[i] - 0.5);
+	}
+
+	for (int i = 0; i < ob; i++){
+		fit[i] = (1.0 + pow(10.0, i) *g_x_m);
+	}
+
+	for (int i = 0; i < ob - 1; i++){
+		for (int k = 0; k < ob - i - 1; k++){
+			fit[i] *= cos(0.5 * pow(y[k], alpha) * M_PI);
+		}
+	}
+	for (int i = 1; i < ob; i++){
+		fit[i] *= sin(0.5 * pow(y[ob - i - 1], alpha) * M_PI);
+	}
+}
+
 
 void dtlz7(double y[], double fit[], int ob, int k){
 	int x_m = k;
@@ -1826,6 +2014,38 @@ void fitness(double y[], double fit[], char problem[], int ob, int k, int l,int 
 	}
 	else if (strncmp(problem, "max", 3) == 0 ){
 		maxproblem(y, fit, problem, ob, k, l, k_dtlz, P, point_num);
+	}
+	else if (strcmp("scaledtlz1", problem) == 0){
+		scaledtlz1(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz1" << std::endl;
+	}
+	else if (strcmp("scaledtlz2", problem) == 0){
+		scaledtlz2(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz2" << std::endl;
+	}
+	else if (strcmp("scaledtlz3", problem) == 0){
+		scaledtlz3(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz3" << std::endl;
+	}
+	else if (strcmp("scaledtlz4", problem) == 0){
+		scaledtlz4(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz4" << std::endl;
+	}
+	else if (strcmp("disscaledtlz1", problem) == 0){
+		disscaledtlz1(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz1" << std::endl;
+	}
+	else if (strcmp("disscaledtlz2", problem) == 0){
+		disscaledtlz2(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz2" << std::endl;
+	}
+	else if (strcmp("disscaledtlz3", problem) == 0){
+		disscaledtlz3(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz3" << std::endl;
+	}
+	else if (strcmp("disscaledtlz4", problem) == 0){
+		disscaledtlz4(y, fit, ob, k_dtlz);
+		//std::cout << "dtlz4" << std::endl;
 	}
 	else{
 		hoge(y, fit, problem, ob, k, l);

@@ -459,6 +459,10 @@ int main(int argc, char *argv[]){
 				strcmp(argv[read_ind + 1], "dtlz1") == 0 || strcmp(argv[read_ind + 1], "dtlz2") == 0 ||
 				strcmp(argv[read_ind + 1], "dtlz3") == 0 || strcmp(argv[read_ind + 1], "dtlz4") == 0 ||
 				strcmp(argv[read_ind + 1], "dtlz7") == 0 ||
+				strcmp(argv[read_ind + 1], "scaledtlz1") == 0 || strcmp(argv[read_ind + 1], "scaledtlz2") == 0 ||
+				strcmp(argv[read_ind + 1], "scaledtlz3") == 0 || strcmp(argv[read_ind + 1], "scaledtlz4") == 0 ||
+				strcmp(argv[read_ind + 1], "disscaledtlz1") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz2") == 0 ||
+				strcmp(argv[read_ind + 1], "disscaledtlz3") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz4") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg1") == 0 || strcmp(argv[read_ind + 1], "maxwfg2") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg3") == 0 || strcmp(argv[read_ind + 1], "maxwfg4") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg5") == 0 || strcmp(argv[read_ind + 1], "maxwfg6") == 0 ||
@@ -595,6 +599,10 @@ int main(int argc, char *argv[]){
 
 	if (strcmp("dtlz1", problem) == 0 || strcmp("dtlz2", problem) == 0 ||
 		strcmp("dtlz3", problem) == 0 || strcmp("dtlz4", problem) == 0 || 
+		strcmp("scaledtlz1", problem) == 0 || strcmp("scaledtlz2", problem) == 0 ||
+		strcmp("scaledtlz3", problem) == 0 || strcmp("scaledtlz4", problem) == 0 ||
+		strcmp("disscaledtlz1", problem) == 0 || strcmp("disscaledtlz2", problem) == 0 ||
+		strcmp("disscaledtlz3", problem) == 0 || strcmp("disscaledtlz4", problem) == 0 ||
 		strcmp("dtlz7", problem) == 0 ||
 		strcmp("maxdtlz1", problem) == 0 || strcmp("maxdtlz2", problem) == 0 ||
 		strcmp("maxdtlz3", problem) == 0 || strcmp("maxdtlz4", problem) == 0 ||
@@ -1384,9 +1392,52 @@ int main(int argc, char *argv[]){
 				//Step2.4 Update of Neighboring Solutions
 			
 
+				//roughly normalize
+				//from here
+			/*	double **FV_combination = new double*[N + 1];
+				double **combination_nondomset = new double*[N + 1];
+				for (int ind = 0; ind < N; ind++){
+					FV_combination[ind] = new double[ob];
+					combination_nondomset[ind] = new double[ob];
+					for (int o = 0; o < ob; o++){
+						FV_combination[ind][o] = FV[ind][o];
+					}
+				}
+				FV_combination[N] = new double[ob];
+				combination_nondomset[N] = new double[ob];
+				for (int o = 0; o < ob; o++){
+					FV_combination[N][o] = y_fit[o];
+				}
+				non_dominated_set(FV_combination, combination_nondomset, ndsize, ob, N + 1, SIGN);
 			
-			
-			
+				for (int o = 0; o < ob; o++){
+					zmin[o] = DBL_MAX;
+					zmax[o] = 0.0;
+				}
+				for (int nd = 0; nd < ndsize; nd++){
+					for (int o = 0; o < ob; o++){
+						if (zmin[o] > combination_nondomset[nd][o]){
+							zmin[o] = combination_nondomset[nd][o];
+						}
+						if (zmax[o] < combination_nondomset[nd][o]){
+							zmax[o] = combination_nondomset[nd][o];
+						}
+					}
+				}
+
+				for (int o = 0; o < ob; o++){
+					interception[o] = zmax[o] + 0.000001;
+				}
+
+				for (int ind = 0; ind < N + 1; ind++){
+					delete[] FV_combination[ind];
+					delete[] combination_nondomset[ind];
+				}
+				delete[] FV_combination;
+				delete[] combination_nondomset;
+*/
+				//to here
+
 				for (int j = 0; j < T; j++){
 					int jejeje = B[i][j];
 				
