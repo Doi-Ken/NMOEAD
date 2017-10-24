@@ -463,6 +463,10 @@ int main(int argc, char *argv[]){
 				strcmp(argv[read_ind + 1], "scaledtlz3") == 0 || strcmp(argv[read_ind + 1], "scaledtlz4") == 0 ||
 				strcmp(argv[read_ind + 1], "disscaledtlz1") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz2") == 0 ||
 				strcmp(argv[read_ind + 1], "disscaledtlz3") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz4") == 0 ||
+				strcmp(argv[read_ind + 1], "scaledtlz1_2") == 0 || strcmp(argv[read_ind + 1], "scaledtlz2_2") == 0 ||
+				strcmp(argv[read_ind + 1], "scaledtlz3_2") == 0 || strcmp(argv[read_ind + 1], "scaledtlz4_2") == 0 ||
+				strcmp(argv[read_ind + 1], "disscaledtlz1_2") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz2_2") == 0 ||
+				strcmp(argv[read_ind + 1], "disscaledtlz3_2") == 0 || strcmp(argv[read_ind + 1], "disscaledtlz4_2") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg1") == 0 || strcmp(argv[read_ind + 1], "maxwfg2") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg3") == 0 || strcmp(argv[read_ind + 1], "maxwfg4") == 0 ||
 				strcmp(argv[read_ind + 1], "maxwfg5") == 0 || strcmp(argv[read_ind + 1], "maxwfg6") == 0 ||
@@ -603,6 +607,10 @@ int main(int argc, char *argv[]){
 		strcmp("scaledtlz3", problem) == 0 || strcmp("scaledtlz4", problem) == 0 ||
 		strcmp("disscaledtlz1", problem) == 0 || strcmp("disscaledtlz2", problem) == 0 ||
 		strcmp("disscaledtlz3", problem) == 0 || strcmp("disscaledtlz4", problem) == 0 ||
+		strcmp("scaledtlz1_2", problem) == 0 || strcmp("scaledtlz2_2", problem) == 0 ||
+		strcmp("scaledtlz3_2", problem) == 0 || strcmp("scaledtlz4_2", problem) == 0 ||
+		strcmp("disscaledtlz1_2", problem) == 0 || strcmp("disscaledtlz2_2", problem) == 0 ||
+		strcmp("disscaledtlz3_2", problem) == 0 || strcmp("disscaledtlz4_2", problem) == 0 ||
 		strcmp("dtlz7", problem) == 0 ||
 		strcmp("maxdtlz1", problem) == 0 || strcmp("maxdtlz2", problem) == 0 ||
 		strcmp("maxdtlz3", problem) == 0 || strcmp("maxdtlz4", problem) == 0 ||
@@ -1131,6 +1139,41 @@ int main(int argc, char *argv[]){
 		}
 	}
 
+	/*double **x_temp = new double*[N];
+	for (int n = 0; n < N; n++){
+		x_temp[n] = new double[item];
+	}
+	double **FV_temp = new double*[N];
+	for (int n = 0; n < N; n++){
+		FV_temp[n] = new double[ob];
+	}
+
+	for (int n = 0; n < N; n++){
+		
+		for (int n2 = 0; n2 < N; n2++){
+			if (function_valuation(problem, function,
+				FV[n], FV[n2],
+				improve_lambda, lambda[n], lambda2[n],
+				zmax, zmin,
+				ob,
+				PENALTY, PENALTY2, shita, max_min)){
+				for (int o = 0; o < ob; o++){
+					FV_temp[n][o] = FV[n2][o];
+				}
+				for (int it = 0; it < item; it++){
+					x_temp[n][it] = x[n2][it];
+				}
+			}
+		}
+	}
+	for (int n = 0; n < N; n++){
+		for (int o = 0; o < ob; o++){
+			FV[n][o] = FV_temp[n][o];
+		}
+		for (int it = 0; it < item; it++){
+			x[n][it] = x_temp[n][it];
+		}
+	}*/
 
 	/************************************Step2 Update***********************************/
 
@@ -1394,48 +1437,51 @@ int main(int argc, char *argv[]){
 
 				//roughly normalize
 				//from here
-			/*	double **FV_combination = new double*[N + 1];
-				double **combination_nondomset = new double*[N + 1];
-				for (int ind = 0; ind < N; ind++){
-					FV_combination[ind] = new double[ob];
-					combination_nondomset[ind] = new double[ob];
-					for (int o = 0; o < ob; o++){
-						FV_combination[ind][o] = FV[ind][o];
-					}
-				}
-				FV_combination[N] = new double[ob];
-				combination_nondomset[N] = new double[ob];
-				for (int o = 0; o < ob; o++){
-					FV_combination[N][o] = y_fit[o];
-				}
-				non_dominated_set(FV_combination, combination_nondomset, ndsize, ob, N + 1, SIGN);
-			
-				for (int o = 0; o < ob; o++){
-					zmin[o] = DBL_MAX;
-					zmax[o] = 0.0;
-				}
-				for (int nd = 0; nd < ndsize; nd++){
-					for (int o = 0; o < ob; o++){
-						if (zmin[o] > combination_nondomset[nd][o]){
-							zmin[o] = combination_nondomset[nd][o];
-						}
-						if (zmax[o] < combination_nondomset[nd][o]){
-							zmax[o] = combination_nondomset[nd][o];
-						}
-					}
-				}
-
-				for (int o = 0; o < ob; o++){
-					interception[o] = zmax[o] + 0.000001;
-				}
-
-				for (int ind = 0; ind < N + 1; ind++){
-					delete[] FV_combination[ind];
-					delete[] combination_nondomset[ind];
-				}
-				delete[] FV_combination;
-				delete[] combination_nondomset;
-*/
+//				double **FV_combination = new double*[N + 1];
+//				double **combination_nondomset = new double*[N + 1];
+//				for (int ind = 0; ind < N; ind++){
+//					FV_combination[ind] = new double[ob];
+//					combination_nondomset[ind] = new double[ob];
+//					for (int o = 0; o < ob; o++){
+//						FV_combination[ind][o] = FV[ind][o];
+//					}
+//				}
+//				FV_combination[N] = new double[ob];
+//				combination_nondomset[N] = new double[ob];
+//				for (int o = 0; o < ob; o++){
+//					FV_combination[N][o] = y_fit[o];
+//				}
+//				non_dominated_set(FV_combination, combination_nondomset, ndsize, ob, N + 1, SIGN);
+//			
+//				for (int o = 0; o < ob; o++){
+//					zmin[o] = DBL_MAX;
+//					zmax[o] = 0.0;
+//				}
+//				for (int nd = 0; nd < ndsize; nd++){
+//					for (int o = 0; o < ob; o++){
+//						if (zmin[o] > combination_nondomset[nd][o]){
+//							zmin[o] = combination_nondomset[nd][o];
+//						}
+//						if (zmax[o] < combination_nondomset[nd][o]){
+//							zmax[o] = combination_nondomset[nd][o];
+//						}
+//					}
+//				}
+//
+//				for (int o = 0; o < ob; o++){
+////					interception[o] = zmax[o] + pow(10, g / (GEN-1.0) * (-6.0) + (1 - g / (GEN - 1.0)) * 1.0);
+//					interception[o] = zmax[o] + 0.000001;
+//
+//				}
+//				
+//
+//				for (int ind = 0; ind < N + 1; ind++){
+//					delete[] FV_combination[ind];
+//					delete[] combination_nondomset[ind];
+//				}
+//				delete[] FV_combination;
+//				delete[] combination_nondomset;
+//
 				//to here
 
 				for (int j = 0; j < T; j++){
@@ -1444,6 +1490,10 @@ int main(int argc, char *argv[]){
 					for (int o = 0; o < ob; o++){
 						normalized_FV[o] = (FV[jejeje][o] - zmin[o]) / (interception[o] - zmin[o]);
 						normalized_y_fit[o] = (y_fit[o] - zmin[o]) / (interception[o] - zmin[o]);
+						if (interception[o] == zmin[o]){
+							normalized_FV[o] = DBL_MAX;
+							normalized_y_fit[o] = DBL_MAX;
+						}
 						normalized_zmin[o] = 0.0;
 						normalized_zmax[o] = 1.0;					
 					}
