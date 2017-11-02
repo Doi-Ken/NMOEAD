@@ -1582,6 +1582,7 @@ int main(int argc, char *argv[]){
 					for (int o = 0; o < ob; o++){
 						lambda[jejeje][o] = temp_lambda[o];
 					}
+					delete[] temp_lambda;
 					//to here
 					shita = shita_temp;
 				}
