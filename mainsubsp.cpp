@@ -1437,56 +1437,60 @@ int main(int argc, char *argv[]){
 
 				//roughly normalize
 				//from here
-//				double **FV_combination = new double*[N + 1];
-//				double **combination_nondomset = new double*[N + 1];
-//				for (int ind = 0; ind < N; ind++){
-//					FV_combination[ind] = new double[ob];
-//					combination_nondomset[ind] = new double[ob];
-//					for (int o = 0; o < ob; o++){
-//						FV_combination[ind][o] = FV[ind][o];
-//					}
-//				}
-//				FV_combination[N] = new double[ob];
-//				combination_nondomset[N] = new double[ob];
-//				for (int o = 0; o < ob; o++){
-//					FV_combination[N][o] = y_fit[o];
-//				}
-//				non_dominated_set(FV_combination, combination_nondomset, ndsize, ob, N + 1, SIGN);
-//			
-//				for (int o = 0; o < ob; o++){
-//					zmin[o] = DBL_MAX;
-//					zmax[o] = 0.0;
-//				}
-//				for (int nd = 0; nd < ndsize; nd++){
-//					for (int o = 0; o < ob; o++){
-//						if (zmin[o] > combination_nondomset[nd][o]){
-//							zmin[o] = combination_nondomset[nd][o];
-//						}
-//						if (zmax[o] < combination_nondomset[nd][o]){
-//							zmax[o] = combination_nondomset[nd][o];
-//						}
-//					}
-//				}
-//
-//				for (int o = 0; o < ob; o++){
-////					interception[o] = zmax[o] + pow(10, g / (GEN-1.0) * (-6.0) + (1 - g / (GEN - 1.0)) * 1.0);
-//					interception[o] = zmax[o] + 0.000001;
-//
-//				}
-//				
-//
-//				for (int ind = 0; ind < N + 1; ind++){
-//					delete[] FV_combination[ind];
-//					delete[] combination_nondomset[ind];
-//				}
-//				delete[] FV_combination;
-//				delete[] combination_nondomset;
-//
+				double **FV_combination = new double*[N + 1];
+				double **combination_nondomset = new double*[N + 1];
+				for (int ind = 0; ind < N; ind++){
+					FV_combination[ind] = new double[ob];
+					combination_nondomset[ind] = new double[ob];
+					for (int o = 0; o < ob; o++){
+						FV_combination[ind][o] = FV[ind][o];
+					}
+				}
+				FV_combination[N] = new double[ob];
+				combination_nondomset[N] = new double[ob];
+				for (int o = 0; o < ob; o++){
+					FV_combination[N][o] = y_fit[o];
+				}
+				non_dominated_set(FV_combination, combination_nondomset, ndsize, ob, N + 1, SIGN);
+			
+			/*	for (int o = 0; o < ob; o++){
+					zmin[o] = DBL_MAX;
+					zmax[o] = 0.0;
+				}
+				for (int nd = 0; nd < ndsize; nd++){
+					for (int o = 0; o < ob; o++){
+						if (zmin[o] > combination_nondomset[nd][o]){
+							zmin[o] = combination_nondomset[nd][o];
+						}
+						if (zmax[o] < combination_nondomset[nd][o]){
+							zmax[o] = combination_nondomset[nd][o];
+						}
+					}
+				}*/
+
+				for (int o = 0; o < ob; o++){
+//					interception[o] = zmax[o] + pow(10, g / (GEN-1.0) * (-6.0) + (1 - g / (GEN - 1.0)) * 1.0);
+					interception[o] = zmax[o] + 0.000001;
+
+				}
+				
+
+				for (int ind = 0; ind < N + 1; ind++){
+					delete[] FV_combination[ind];
+					delete[] combination_nondomset[ind];
+				}
+				delete[] FV_combination;
+				delete[] combination_nondomset;
+
 				//to here
 
 				for (int j = 0; j < T; j++){
 					int jejeje = B[i][j];
-				
+					//adaptive from here
+					double *temp_lambda = new double[ob];
+					double temp_lambda_sum = 0.0;
+					//to here
+
 					for (int o = 0; o < ob; o++){
 						normalized_FV[o] = (FV[jejeje][o] - zmin[o]) / (interception[o] - zmin[o]);
 						normalized_y_fit[o] = (y_fit[o] - zmin[o]) / (interception[o] - zmin[o]);
@@ -1495,8 +1499,21 @@ int main(int argc, char *argv[]){
 							normalized_y_fit[o] = DBL_MAX;
 						}
 						normalized_zmin[o] = 0.0;
-						normalized_zmax[o] = 1.0;					
+						normalized_zmax[o] = 1.0;
+
+						//adaptive weight
+						temp_lambda[o] = lambda[jejeje][o];
+						lambda[jejeje][o] *= (interception[o] - zmin[o]);
+						temp_lambda_sum += lambda[jejeje][o];
+						//to here
 					}
+
+					//adaptive weight
+					for (int o = 0; o < ob; o++){
+						lambda[jejeje][o] = lambda[jejeje][o] / temp_lambda_sum;
+					}
+					//to here
+					
 					if (strcmp(function, "normalized_pbi") == 0){
 						for (int o = 0; o < ob; o++){
 							lambda2[jejeje][o] = interception[o] - zmin[o];
@@ -1561,6 +1578,11 @@ int main(int argc, char *argv[]){
 					}
 			
 
+					//adaptive from here
+					for (int o = 0; o < ob; o++){
+						lambda[jejeje][o] = temp_lambda[o];
+					}
+					//to here
 					shita = shita_temp;
 				}
 			

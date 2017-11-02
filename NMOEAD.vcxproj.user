@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>-num 0 -pro maxdtlz2 -obj 10 -pop 220 -dev 3 -nei 20 -fun pbi -amax 1.0 -amin 1.0 -pena 5.0 -pena2 50.0 -shita 1.0471975512 -valnum 10000000000 -gen 750 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1.0 -k_fac 9 -l_fac 15 -k_dtlz 10 -lam false -maxmin min -refnondom false -normalize true -pop2 55 -dev2 2</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments> -num 0 -pro scaledtlz1 -obj 3 -pop 91 -dev 12 -nei 20 -fun pbi -amax 1.0 -amin 1.0 -pena 5.0 -pena2 50.0 -shita 0.261799387799 -valnum 10000000000 -gen 400 -sbxeta 20.0 -muteta 20.0 -co 1.0 -mut 1.0 -k_fac 2 -l_fac 22 -k_dtlz 5 -lam false -maxmin min -refnondom false -normalize false -pop2 0 -dev2 1</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

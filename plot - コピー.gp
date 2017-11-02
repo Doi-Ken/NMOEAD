@@ -2,7 +2,7 @@ set ticslevel 0
 set format x ""
 set format y ""
 set format z ""
-graph="graph0"
+graph="vec2"
 unset xtics
 unset ytics
 unset ztics
